@@ -40,7 +40,8 @@
                 quickListClass:    'quick',             // class of each quick list item
                 quickListGroupTag: '',                  // tag surrounding quick list items (e.g., ul)
                 quickListTag:      'a',                 // tag type of each quick list item (e.g., a or li)
-                visibleClass:      'visible'            // class applied to visible rows
+                visibleClass:      'visible',           // class applied to visible rows
+                skipClass:         'donothide'          // class not to hide if nested tables
             },
             hsc = function(text) { // mimic PHP's htmlspecialchars() function
                 return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -56,7 +57,7 @@
                         table.find('tfoot').show();
                     }
                 } else { // if the filter query is not blank
-                    tbody.find('tr').hide().removeClass(settings.visibleClass); // hide all rows, assuming none were found
+                    tbody.find('tr:not(.'+settings.skipClass+')').hide().removeClass(settings.visibleClass); // hide all rows, assuming none were found
                     if (settings.hideTFootOnFilter) { // hide footer if the setting was specified
                         table.find('tfoot').hide();
                     }
